@@ -1,50 +1,47 @@
 # Iniciating the list variable to be used in the functions
 survey = []
 
+# this function will validate all the inputs that the user will provide. will check if the data is a integer and if it is between 1 and 5
+def valid_rate(a):
+    try:
+        rate = int(input(a))
+        while rate < 1 or rate > 5:
+            print("")
+            print("please provide a rate between 1 and 5.")
+            rate = int(input(a))
+    except ValueError as s:
+        print("")
+        print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{s}\n")
+        rate = int(input(a))
+        while rate < 1 or rate > 5:
+            print("")
+            print("please provide a rate between 1 and 5.")
+            rate = int(input(a))
+    survey.append(rate)
+
 def new_survey():
     # using for loop with range of 4 to get all the 4 options, each number in the range will be for one rating.
     # Each if will add the input in a list
     print("For each aspects please provide a rating from 1 to 5.")
     for surv in range(4):
         if surv == 0:
-            try:
-                sqa = int(input("Service Quality: "))
-                while sqa < 1 or sqa > 5:
-                    print("please provide a rate between 1 and 5.")
-                    sqa = int(input("Service Quality: "))
-                survey.append(sqa)
-            except ValueError as s:
-                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{s}\n")
+            # this is the name for the aspect that the user are rating
+            aspect = "Service Quality: "
+            # calling function valid_rate to validate if the entries are integer or not.
+            valid_rate(aspect)
         elif surv == 1:
-            try:
-                clean = int(input("Cleanliness: "))
-                while clean < 1 or clean > 5:
-                    print("please provide a rate between 1 and 5.")
-                    clean = int(input("Cleanliness: "))
-                survey.append(clean)
-            except ValueError as c:
-                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{c}\n")
+            aspect = "Cleanliness: "
+            valid_rate(aspect)
         elif surv == 2:
-            try:
-                vmoney = int(input("Value for Money: "))
-                while vmoney < 1 or clean > 5:
-                    print("please provide a rate between 1 and 5.")
-                    vmoney = int(input("Value for Money: "))
-                survey.append(vmoney)
-            except ValueError as v:
-                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{v}\n")
+            aspect = "Value for Money: "
+            valid_rate(aspect)
         elif surv == 3:
-            try:
-                sat = int(input("Overall Satisfaction: "))
-                while sat < 1 or clean > 5:
-                    print("please provide a rate between 1 and 5.")
-                    sat = int(input("Overall Satisfaction: "))
-                survey.append(sat)
-            except ValueError as s:
-                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{s}\n")
-    print("Thank you for aswerring our survey.")
-    print("You rate was saved successfully.")
+            aspect = "Overall Satisfaction: "
+            valid_rate(aspect)
+    print("\nThank you for aswerring our survey.")
+    print("You rate was saved successfully.\n")
     print(survey)
+    print("")
     survey.clear()
     main()
         
