@@ -3,6 +3,7 @@ survey = []
 
 def new_survey():
     # using for loop with range of 4 to get all the 4 options, each number in the range will be for one rating.
+    # Each if will add the input in a list
     for surv in range(4):
         if surv == 0:
             sqa = int(input("Service Quality: "))
