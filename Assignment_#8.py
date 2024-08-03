@@ -4,19 +4,46 @@ survey = []
 def new_survey():
     # using for loop with range of 4 to get all the 4 options, each number in the range will be for one rating.
     # Each if will add the input in a list
+    print("For each aspects please provide a rating from 1 to 5.")
     for surv in range(4):
         if surv == 0:
-            sqa = int(input("Service Quality: "))
-            survey.append(sqa)
+            try:
+                sqa = int(input("Service Quality: "))
+                while sqa < 1 or sqa > 5:
+                    print("please provide a rate between 1 and 5.")
+                    sqa = int(input("Service Quality: "))
+                survey.append(sqa)
+            except ValueError as s:
+                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{s}\n")
         elif surv == 1:
-            clean = int(input("Cleanliness: "))
-            survey.append(clean)
+            try:
+                clean = int(input("Cleanliness: "))
+                while clean < 1 or clean > 5:
+                    print("please provide a rate between 1 and 5.")
+                    clean = int(input("Cleanliness: "))
+                survey.append(clean)
+            except ValueError as c:
+                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{c}\n")
         elif surv == 2:
-            vmoney = int(input("Value for Money: "))
-            survey.append(vmoney)
+            try:
+                vmoney = int(input("Value for Money: "))
+                while vmoney < 1 or clean > 5:
+                    print("please provide a rate between 1 and 5.")
+                    vmoney = int(input("Value for Money: "))
+                survey.append(vmoney)
+            except ValueError as v:
+                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{v}\n")
         elif surv == 3:
-            sat = int(input("Overall Satisfaction: "))
-            survey.append(sat)
+            try:
+                sat = int(input("Overall Satisfaction: "))
+                while sat < 1 or clean > 5:
+                    print("please provide a rate between 1 and 5.")
+                    sat = int(input("Overall Satisfaction: "))
+                survey.append(sat)
+            except ValueError as s:
+                print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{s}\n")
+    print("Thank you for aswerring our survey.")
+    print("You rate was saved successfully.")
     print(survey)
     survey.clear()
     main()
