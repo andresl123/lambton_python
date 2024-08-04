@@ -59,11 +59,22 @@ def new_survey(a):
     main()
 
 def survey_summary():
+    count_survey = 0
+    # opening the file to be able to use it, in read option
     survey_data = open('survey_data.txt', 'r')
-    survey_list = list(survey_data.readline())
-    survey_list = survey_list.rstrip('\n')
-    print(survey_list)
+    # reading each line removing '\n' and spliting ','
+    #survey_data = survey_data.read()
+    #survey_data = survey_data.rstrip('\n').split(',')
+    survey_list = list(survey_data)
+    for s in survey_list:
+        print(s)
+        count_survey += + 1
+    for x in survey_data:
+        print(x)
 
+    print(survey_list)
+    print(f"This is the count of respondents: ", count_survey)
+    survey_data.close()
 # Main module that will show the menu and call other functions.
 def main():
     print("Welcome to my survey program\n")
