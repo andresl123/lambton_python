@@ -1,23 +1,33 @@
 # Iniciating the list variable to be used in the functions
 survey = []
-
+# will show the gretting only one time, when the user start the program
+print("Welcome to my survey program\n")
 # this function will validate all the inputs that the user will provide. will check if the data is a integer and if it is between 1 and 5
 def valid_rate(a):
     try:
         rate = int(input(a))
         while rate < 1 or rate > 5:
             print("")
-            print("please provide a rate between 1 and 5.")
+            print("ATENCION:\nplease provide a rate between 1 and 5.")
             rate = int(input(a))
     except ValueError as s:
         print("")
-        print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 5.\n{s}\n")
+        print(f"ATENCION USER:\nYou provided a character or an empty value, which means that you need to provide a number between 1 and 5.\nPYTHON ERROR:\n{s}\n")
         rate = int(input(a))
         while rate < 1 or rate > 5:
             print("")
             print("please provide a rate between 1 and 5.")
             rate = int(input(a))
     survey.append(rate)
+    # using the count variable to use in the file processing, to access the list index and white the data in the file.
+    count = len(survey) - 1
+    survey_data = open('survey_data.txt', 'a')
+    survey_data.write(str(survey[count]))
+    # this conditional statement will check the index of the list and if it is the last index which is '3'  wont write the comma and also will jump one line, meaning that the next time that this function is called the new data will be in an another line.
+    if count != 3:
+        survey_data.write(',')
+    else:
+        survey_data.write('\n')
 
 def new_survey():
     # using for loop with range of 4 to get all the 4 options, each number in the range will be for one rating.
@@ -48,22 +58,21 @@ def new_survey():
 
 # Main module that will show the menu and call other functions.
 def main():
-    print("Welcome to my survey program\n")
     print("1. Conduct a new survey\n2. View survey summary\n3. Exit\n")
     # checking the entries that the user are providing. If the user provided a integer but diferente from 1, 2 or 3 it will continue to ask for a number between 1 and 3 if it is a string will show up a error and open the menu again. 
     try:
         option = int(input("Please choose one of the above option (1, 2 or 3): "))
         while option < 1 or option > 3:
-            option = int(input("Please choose one of the option from menu above, which can be number 1, 2 or 3 : "))
+            option = int(input("ATENCION:\nPlease choose one of the option from menu above, which can be number 1, 2 or 3 : "))
     except ValueError as o:
-        print(f"You provided a character or an empty value, which means that you need to provide a number between 1 and 3.\n{o}\n")
+        print(f"\nATENCION USER:\nYou provided a character or an empty value, which means that you need to provide a number between 1 and 3.\nPYTHON ERROR:\n{o}\n")
         main()
     # This block of code will check which option the user choose. have an option for each number.
     if option == 1:
         try:
             respond = int(input("Please enter the number of respondents: "))
         except ValueError as r:
-            print(f"You provided a character or an empty value, which means that you need to provide a number, correspondent to the number of respondets.\n{r}\n")
+            print(f"\nATENCION USER:\nYou provided a character or an empty value, which means that you need to provide a number, correspondent to the number of respondents.\nPYTHON ERROR:\n{r}\n")
             main()
         new_survey()
     elif option == 2:
