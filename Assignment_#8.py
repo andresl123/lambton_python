@@ -1,7 +1,6 @@
 # Iniciating the list variable to be used in the functions
 survey = []
-# will show the gretting only one time, when the user start the program
-print("Welcome to my survey program\n")
+
 # this function will validate all the inputs that the user will provide. will check if the data is a integer and if it is between 1 and 5
 def valid_rate(a):
     try:
@@ -19,7 +18,8 @@ def valid_rate(a):
             print("please provide a rate between 1 and 5.")
             rate = int(input(a))
     survey.append(rate)
-    # using the count variable to use in the file processing, to access the list index and white the data in the file.
+    # using the count variable to use in the file processing, to access the list index and write the data in the file.
+    # the lens value will be added in each interation starting with 'one' that why i`m removeing 1, to start in 0
     count = len(survey) - 1
     survey_data = open('survey_data.txt', 'a')
     survey_data.write(str(survey[count]))
@@ -27,37 +27,46 @@ def valid_rate(a):
     if count != 3:
         survey_data.write(',')
     else:
+        # when reach the last item in the list it will jump one line and clear the list to start again the count in 0.
         survey_data.write('\n')
+        survey.clear()
+        survey_data.close()
 
-def new_survey():
+def new_survey(a):
     # using for loop with range of 4 to get all the 4 options, each number in the range will be for one rating.
     # Each if will add the input in a list
-    print("For each aspects please provide a rating from 1 to 5.")
-    for surv in range(4):
-        if surv == 0:
-            # this is the name for the aspect that the user are rating
-            aspect = "Service Quality: "
-            # calling function valid_rate to validate if the entries are integer or not.
-            valid_rate(aspect)
-        elif surv == 1:
-            aspect = "Cleanliness: "
-            valid_rate(aspect)
-        elif surv == 2:
-            aspect = "Value for Money: "
-            valid_rate(aspect)
-        elif surv == 3:
-            aspect = "Overall Satisfaction: "
-            valid_rate(aspect)
-    print("\nThank you for aswerring our survey.")
+    for i in range(a):
+        print("For each aspects please provide a rating from 1 to 5.")
+        for surv in range(4):
+            if surv == 0:
+                # this is the name for the aspect that the user are rating
+                aspect = "Service Quality: "
+                # calling function valid_rate to validate if the entries are integer or not.
+                valid_rate(aspect)
+            elif surv == 1:
+                aspect = "Cleanliness: "
+                valid_rate(aspect)
+            elif surv == 2:
+                aspect = "Value for Money: "
+                valid_rate(aspect)
+            elif surv == 3:
+                aspect = "Overall Satisfaction: "
+                valid_rate(aspect)
+    print("\nThank you for answering our survey.")
     print("You rate was saved successfully.\n")
-    print(survey)
     print("")
     survey.clear()
     main()
-        
+
+def survey_summary():
+    survey_data = open('survey_data.txt', 'r')
+    survey_list = list(survey_data.readline())
+    survey_list = survey_list.rstrip('\n')
+    print(survey_list)
 
 # Main module that will show the menu and call other functions.
 def main():
+    print("Welcome to my survey program\n")
     print("1. Conduct a new survey\n2. View survey summary\n3. Exit\n")
     # checking the entries that the user are providing. If the user provided a integer but diferente from 1, 2 or 3 it will continue to ask for a number between 1 and 3 if it is a string will show up a error and open the menu again. 
     try:
@@ -74,9 +83,11 @@ def main():
         except ValueError as r:
             print(f"\nATENCION USER:\nYou provided a character or an empty value, which means that you need to provide a number, correspondent to the number of respondents.\nPYTHON ERROR:\n{r}\n")
             main()
-        new_survey()
+        new_survey(respond)
     elif option == 2:
-        print("view survey summary")
+        print("Survey Summary: ")
+        survey_summary()
+
         main()
     else:
         print("\nThank you for using my survey program")
