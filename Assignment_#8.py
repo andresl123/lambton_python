@@ -59,21 +59,67 @@ def new_survey(a):
     main()
 
 def survey_summary():
+    service_quality_total = 0
+    service_cleanliness_total = 0
+    service_value_for_money_total = 0
+    service_overall_satisfaction_total = 0
+    rating = 0
+    rating2 = 0
+    rating3 = 0
+    rating4 = 0
+    rating5 = 0
+    # This variable will check number of respondents
     count_survey = 0
     # opening the file to be able to use it, in read option
     survey_data = open('survey_data.txt', 'r')
-    # reading each line removing '\n' and spliting ','
-    #survey_data = survey_data.read()
-    #survey_data = survey_data.rstrip('\n').split(',')
     survey_list = list(survey_data)
-    for s in survey_list:
-        print(s)
+    # this first loop will create a list with each element separated
+    for s in range(len(survey_list)):
+        survey_list2 = list(survey_list[s])
+        cleaned_survey_list = []
+        # this second loop will create a new list without , and '\n'
+        for item in survey_list2:
+            # if the item is not ',' or '\n' will add in the new list
+            if item not in {',', '\n'}:
+                cleaned_survey_list.append(item)
+        for item in range(len(cleaned_survey_list)):
+            if item == 0:
+                service_quality = int(cleaned_survey_list[item])
+                service_quality_total = service_quality_total + service_quality
+                if service_quality == 1:
+                    rating = rating + 1
+                elif service_quality == 2:
+                    rating2 = rating2 + 1
+                elif service_quality == 3:
+                    rating3 = rating3 + 1
+                elif service_quality == 4:
+                    rating4 = rating4 + 1
+                elif service_quality == 5:
+                    rating5 = rating5 + 1
+            elif item == 1:
+                service_cleanliness = int(cleaned_survey_list[item])
+                service_cleanliness_total = service_cleanliness_total + service_cleanliness
+            elif item == 2:
+                service_value_for_money = int(cleaned_survey_list[item])
+                service_value_for_money_total = service_value_for_money_total + service_value_for_money
+            elif item == 3:
+                service_overall_satisfaction = int(cleaned_survey_list[item])
+                service_overall_satisfaction_total = service_overall_satisfaction_total + service_overall_satisfaction
+        print("service quality total: ",service_quality_total)
+        print("service cleanliness total: ",service_cleanliness_total)
+        print("service Value for Money total: ",service_value_for_money_total)
+        print("service Overall Satisfaction total: ",service_overall_satisfaction_total)
+        print(cleaned_survey_list)
         count_survey += + 1
-    for x in survey_data:
-        print(x)
+    print("Rating 1: ", rating)
+    print("Rating 2: ", rating2)
+    print("Rating 3: ", rating3)
+    print("Rating 4: ", rating4)
+    print("Rating 5: ", rating5)
 
-    print(survey_list)
-    print(f"This is the count of respondents: ", count_survey)
+    print("Survey Summary: ")
+    print("Total number of responses: ", count_survey)
+    print("")
     survey_data.close()
 # Main module that will show the menu and call other functions.
 def main():
@@ -96,9 +142,7 @@ def main():
             main()
         new_survey(respond)
     elif option == 2:
-        print("Survey Summary: ")
         survey_summary()
-
         main()
     else:
         print("\nThank you for using my survey program")
